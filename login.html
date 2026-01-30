@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EmmyGPT Login</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #121212;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .form-container {
+    background-color: #1e1e1e;
+    padding: 40px 30px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  }
+
+  h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 5px;
+    color: #ffffff;
+    font-weight: bold;
+  }
+
+  p {
+    text-align: center;
+    color: #e5e5e5;
+    font-size: 0.95rem;
+    margin-bottom: 30px;
+  }
+
+  input {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: 2px solid #ffffff;
+    background-color: #121212;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  input:focus {
+    outline: 2px solid #3b82f6;
+    border: 2px solid #3b82f6;
+  }
+
+  .error-msg {
+    color: #f87171;
+    font-size: 0.85rem;
+    height: 18px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 10px;
+    border-radius: 8px;
+    border: none;
+    background-color: #3b82f6;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #1e3a8a;
+  }
+
+  a {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #3b82f6;
+    font-size: 0.95rem;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+<div class="form-container">
+  <h2>Welcome Back</h2>
+  <p>Login to continue</p>
+
+  <input type="text" id="username" placeholder="Username" required>
+  <div id="username-error" class="error-msg"></div>
+
+  <input type="password" id="password" placeholder="Password" required>
+  <div id="password-error" class="error-msg"></div>
+
+  <button id="loginBtn">Login</button>
+
+  <a href="signup.html">Don't have an account? Sign up</a>
+</div>
+
+<script>
+  const loginBtn = document.getElementById('loginBtn');
+  const usernameInput = document.getElementById('username');
+  const passwordInput = document.getElementById('password');
+  const usernameError = document.getElementById('username-error');
+  const passwordError = document.getElementById('password-error');
+
+  loginBtn.addEventListener('click', () => {
+    const username = usernameInput.value.trim();
+    const password = passwordInput.value;
+
+    usernameError.textContent = "";
+    passwordError.textContent = "";
+
+    const savedUsername = localStorage.getItem('emmy_username');
+    const savedPassword = localStorage.getItem('emmy_password');
+
+    if(username === savedUsername && password === savedPassword){
+      // Successful login → redirect to main chat page
+      window.location.href = "app.html"; // Placeholder for chat interface
+    } else {
+      // Invalid credentials
+      usernameError.textContent = "Invalid credentials";
+      passwordError.textContent = "Invalid credentials";
+    }
+  });
+</script>
+
+</body>
+</html>
