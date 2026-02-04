@@ -16,8 +16,6 @@ let currentKeyIndex = 0;
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
-
-// Multer for file uploads
 const upload = multer();
 
 // ======================
@@ -30,10 +28,15 @@ function getNextAPIKey() {
 }
 
 // ======================
-// Routes
+// Root page
 // ======================
+app.get("/", (req, res) => {
+  res.send("Emmy-GPT backend is running! 🚀");
+});
 
+// ======================
 // Chat endpoint
+// ======================
 app.post("/api/chat", async (req, res) => {
   const { message } = req.body;
   if (!message) return res.status(400).json({ error: "No message provided" });
@@ -56,9 +59,7 @@ app.post("/api/chat", async (req, res) => {
 
     const data = await response.json();
 
-    if (data.error || !data.choices) {
-      throw new Error();
-    }
+    if (data.error || !data.choices) throw new Error();
 
     res.json({ reply: data.choices[0].message.content.trim() });
 
@@ -68,9 +69,11 @@ app.post("/api/chat", async (req, res) => {
   }
 });
 
-// Voice / file endpoint example
+// ======================
+// File / voice endpoint
+// ======================
 app.post("/api/file", upload.single("file"), async (req, res) => {
-  res.json({ reply: "File endpoint received your file!" });
+  res.json({ reply: "File/voice endpoint received your file!" });
 });
 
 // ======================
